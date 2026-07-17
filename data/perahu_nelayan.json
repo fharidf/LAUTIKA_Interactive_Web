@@ -1,0 +1,100 @@
+{
+  "slug": "perahu_nelayan",
+  "judul": "Perahu Nelayan",
+  "nomor": 3,
+  "deskripsi_budaya": "Perahu nelayan merupakan sarana utama masyarakat pesisir dalam melaksanakan Tradisi Sedekah Laut. Pada prosesi larung sesaji, perahu digunakan untuk mengangkut Jolen menuju laut lepas sebagai simbol rasa syukur kepada Tuhan Yang Maha Esa.",
+  "geometri_utama": ["Trapesium","Segitiga","Persegi Panjang","Balok","Tabung"],
+  "model_3d": {
+    "type": "compound",
+    "parts": [
+      {"name": "Badan (Trapesium)", "shape": "trapezoid_prism",
+       "color": "#5D4037", "dims": {"a": 4, "b": 3.2, "h": 0.6, "d": 1.6}, "pos": [0,-0.3,0]},
+      {"name": "Dek (Persegi Panjang)", "shape": "box",
+       "color": "#A1887F", "dims": {"w": 4, "h": 0.15, "d": 1.6}, "pos": [0,0,0]},
+      {"name": "Kabin (Balok)", "shape": "box",
+       "color": "#1565C0", "dims": {"w": 1.4, "h": 0.85, "d": 1.2}, "pos": [-0.5,0.5,0]},
+      {"name": "Tiang (Tabung)", "shape": "cylinder",
+       "color": "#A1887F", "dims": {"r": 0.06, "h": 1.4}, "pos": [1.2,0.7,0]}
+    ]
+  },
+  "tujuan": [
+    "Mengenal fungsi perahu dalam Tradisi Sedekah Laut",
+    "Mengidentifikasi bentuk-bentuk geometri pada perahu",
+    "Menghubungkan objek budaya dengan konsep matematika",
+    "Memahami bangun datar dan bangun ruang pada perahu",
+    "Menyelesaikan soal kontekstual"
+  ],
+  "unsur_bangun": {
+    "Persegi Panjang": ["Panjang (p)", "Lebar (l)"],
+    "Segitiga":        ["Alas (a)", "Tinggi (t)", "3 sisi"],
+    "Trapesium":       ["Sisi sejajar (a,b)", "Tinggi (t)"],
+    "Balok":           ["Panjang (p)", "Lebar (l)", "Tinggi (t)"],
+    "Tabung":          ["Jari-jari (r)", "Tinggi (t)"]
+  },
+  "rumus": [
+    {"nama": "Luas Persegi Panjang",
+     "latex": "L = p \\times l",
+     "simbol": {"p": "Panjang", "l": "Lebar"}},
+    {"nama": "Keliling Persegi Panjang",
+     "latex": "K = 2(p + l)",
+     "simbol": {"p": "Panjang", "l": "Lebar"}},
+    {"nama": "Luas Segitiga",
+     "latex": "L = \\frac{1}{2} \\times a \\times t",
+     "simbol": {"a": "Alas", "t": "Tinggi"}},
+    {"nama": "Luas Trapesium",
+     "latex": "L = \\frac{1}{2}(a+b) \\times t",
+     "simbol": {"a": "Sisi atas", "b": "Sisi bawah", "t": "Tinggi"}},
+    {"nama": "Volume Balok",
+     "latex": "V = p \\times l \\times t",
+     "simbol": {"p": "Panjang", "l": "Lebar", "t": "Tinggi"}}
+  ],
+  "simulasi": {
+    "params": [
+      {"id": "dek_p", "label": "Panjang Dek (cm)", "min": 20, "max": 80, "default": 40, "unit": "cm"},
+      {"id": "dek_l", "label": "Lebar Dek (cm)",   "min": 5,  "max": 30, "default": 12, "unit": "cm"},
+      {"id": "kab_p", "label": "Panjang Kabin (cm)","min": 5, "max": 30, "default": 14, "unit": "cm"},
+      {"id": "kab_l", "label": "Lebar Kabin (cm)",  "min": 5, "max": 20, "default": 8,  "unit": "cm"},
+      {"id": "kab_t", "label": "Tinggi Kabin (cm)", "min": 5, "max": 20, "default": 10, "unit": "cm"}
+    ],
+    "hasil": ["L_dek", "V_kabin"]
+  },
+  "contoh_soal": {
+    "diketahui": {"dek_p": 40, "dek_l": 12, "dep_a": 12, "dep_t": 18,
+                  "kab_p": 14, "kab_l": 8, "kab_t": 10},
+    "ditanya": ["Luas dek perahu", "Luas bagian depan", "Volume kabin"],
+    "pembahasan": [
+      {"langkah": 1, "judul": "Luas Dek (Persegi Panjang)",
+       "isi": "L = 40 × 12 = 480 cm²"},
+      {"langkah": 2, "judul": "Luas Depan (Segitiga)",
+       "isi": "L = ½ × 12 × 18 = 108 cm²"},
+      {"langkah": 3, "judul": "Volume Kabin (Balok)",
+       "isi": "V = 14 × 8 × 10 = 1.120 cm³"}
+    ]
+  },
+  "latihan": {
+    "soal": "Dek perahu: p=50cm, l=15cm. Hitung luas dek!",
+    "jawaban": 750,
+    "toleransi": 5,
+    "pembahasan": ["L = p × l = 50 × 15 = 750 cm²"]
+  },
+  "quiz": [
+    {"soal": "Badan perahu berbentuk bangun datar...",
+     "pilihan": ["Persegi","Segitiga","Trapesium","Lingkaran"], "jawaban": 2},
+    {"soal": "Rumus luas persegi panjang...",
+     "pilihan": ["L=p+l", "L=p×l", "L=2(p+l)", "L=½×p×l"], "jawaban": 1},
+    {"soal": "Tiang perahu berbentuk bangun ruang...",
+     "pilihan": ["Balok","Kerucut","Prisma","Tabung"], "jawaban": 3},
+    {"soal": "Luas trapesium dengan a=6, b=4, t=3 adalah...",
+     "pilihan": ["15 cm²", "18 cm²", "12 cm²", "21 cm²"], "jawaban": 0},
+    {"soal": "Dek perahu menyerupai bangun datar...",
+     "pilihan": ["Segitiga","Trapesium","Persegi Panjang","Lingkaran"],
+     "jawaban": 2}
+  ],
+  "ringkasan": [
+    "Perahu punya 5 bentuk geometri berbeda",
+    "Bangun Datar: Trapesium, Segitiga, Persegi Panjang",
+    "Bangun Ruang: Balok (kabin), Tabung (tiang)",
+    "Luas PP = p×l  |  L Segitiga = ½×a×t",
+    "Volume Balok = p×l×t"
+  ]
+}

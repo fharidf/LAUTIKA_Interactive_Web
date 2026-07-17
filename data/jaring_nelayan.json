@@ -1,0 +1,108 @@
+{
+  "slug": "jaring_nelayan",
+  "judul": "Jaring Nelayan",
+  "nomor": 5,
+  "deskripsi_budaya": "Jaring nelayan adalah alat utama untuk menangkap ikan di laut Cilacap. Dalam Tradisi Sedekah Laut, jaring menjadi simbol harapan rezeki dan keselamatan. Pola lubang jaring yang teratur menyimpan konsep geometri yang luar biasa!",
+  "geometri_utama": ["Belah Ketupat","Teselasi","Transformasi Geometri"],
+  "model_3d": {
+    "type": "net",
+    "rows": 6, "cols": 8,
+    "color_geo": "#00BFA5"
+  },
+  "tujuan": [
+    "Mengenal fungsi jaring dalam kehidupan masyarakat pesisir",
+    "Mengidentifikasi bentuk geometri penyusun jaring",
+    "Memahami pola berulang (teselasi) pada jaring",
+    "Memahami konsep transformasi geometri",
+    "Menyelesaikan soal kontekstual"
+  ],
+  "unsur_bangun": {
+    "Belah Ketupat": ["4 sisi sama panjang", "2 diagonal", "4 titik sudut"],
+    "Teselasi": ["Pola berulang", "Tanpa celah", "Tanpa tumpang tindih"],
+    "Translasi": ["Geser arah x dan y", "Rumus: (x+a, y+b)"],
+    "Rotasi": ["Putar pada titik pusat", "Sudut rotasi"],
+    "Refleksi": ["Cerminkan pada garis", "Simetri"],
+    "Dilatasi": ["Perbesar/perkecil", "Faktor skala k"]
+  },
+  "transformasi": [
+    {"nama": "Translasi",
+     "ket": "Geser pola ke posisi baru",
+     "rumus": "(x, y) → (x+a, y+b)",
+     "warna": "#29B6F6"},
+    {"nama": "Rotasi",
+     "ket": "Putar pola pada titik pusat",
+     "rumus": "90°, 180°, 270°",
+     "warna": "#FF7043"},
+    {"nama": "Refleksi",
+     "ket": "Cerminkan pola",
+     "rumus": "Cermin sumbu x atau y",
+     "warna": "#66BB6A"},
+    {"nama": "Dilatasi",
+     "ket": "Ubah ukuran pola",
+     "rumus": "(x,y) → (kx, ky)",
+     "warna": "#EF5350"}
+  ],
+  "rumus": [
+    {"nama": "Jumlah Pola Jaring",
+     "latex": "N = b \\times k",
+     "simbol": {"b": "Jumlah baris", "k": "Jumlah kolom"}},
+    {"nama": "Translasi",
+     "latex": "(x', y') = (x+a,\\; y+b)",
+     "simbol": {"a": "Geser horizontal", "b": "Geser vertikal"}},
+    {"nama": "Rotasi 90° (Titik Pusat Asal)",
+     "latex": "(x', y') = (-y,\\; x)",
+     "simbol": {"x": "Koordinat x asal", "y": "Koordinat y asal"}},
+    {"nama": "Refleksi Sumbu X",
+     "latex": "(x', y') = (x,\\; -y)",
+     "simbol": {"x": "Koordinat x", "y": "Koordinat y"}}
+  ],
+  "simulasi": {
+    "params": [
+      {"id": "baris", "label": "Jumlah Baris",  "min": 2, "max": 10, "default": 4, "unit": ""},
+      {"id": "kolom", "label": "Jumlah Kolom",  "min": 2, "max": 12, "default": 6, "unit": ""},
+      {"id": "tx",    "label": "Translasi X",   "min": 0, "max": 10, "default": 3, "unit": "satuan"},
+      {"id": "ty",    "label": "Translasi Y",   "min": 0, "max": 10, "default": 2, "unit": "satuan"}
+    ],
+    "hasil": ["N_pola", "posisi_baru"]
+  },
+  "contoh_soal": {
+    "diketahui": {"baris": 4, "kolom": 6, "asal_x": 1, "asal_y": 1, "tx": 3, "ty": 2},
+    "ditanya": ["Jumlah pola belah ketupat", "Posisi baru setelah translasi"],
+    "pembahasan": [
+      {"langkah": 1, "judul": "Pahami Informasi",
+       "isi": "Jaring 4 baris × 6 kolom. Satu pola di (1,1) ditranslasi (3,2)."},
+      {"langkah": 2, "judul": "Hitung Jumlah Pola",
+       "isi": "N = 4 × 6 = 24 pola belah ketupat"},
+      {"langkah": 3, "judul": "Hitung Translasi",
+       "isi": "x' = 1 + 3 = 4,  y' = 1 + 2 = 3"},
+      {"langkah": 4, "judul": "Kesimpulan",
+       "isi": "Jumlah pola = 24. Posisi baru = (4, 3)"}
+    ]
+  },
+  "latihan": {
+    "soal": "Jaring 5 baris × 8 kolom. Berapa jumlah pola belah ketupat?",
+    "jawaban": 40,
+    "toleransi": 0,
+    "pembahasan": ["N = 5 × 8 = 40 pola belah ketupat"]
+  },
+  "quiz": [
+    {"soal": "Jaring nelayan tersusun dari pola berulang berbentuk...",
+     "pilihan": ["Segitiga","Persegi","Belah Ketupat","Trapesium"],
+     "jawaban": 2},
+    {"soal": "Pola berulang yang menutup bidang disebut...",
+     "pilihan": ["Translasi","Teselasi","Rotasi","Refleksi"], "jawaban": 1},
+    {"soal": "Geser pola ke posisi baru disebut...",
+     "pilihan": ["Rotasi","Refleksi","Translasi","Dilatasi"], "jawaban": 2},
+    {"soal": "Jaring 3×5 punya berapa pola?",
+     "pilihan": ["8","15","12","10"], "jawaban": 1},
+    {"soal": "Translasi (2,3) pada titik (1,1) menghasilkan...",
+     "pilihan": ["(3,4)","(2,3)","(1,1)","(4,5)"], "jawaban": 0}
+  ],
+  "ringkasan": [
+    "Jaring nelayan = contoh nyata teselasi dalam kehidupan",
+    "Pola dasar jaring = belah ketupat berulang",
+    "Jumlah pola: N = baris × kolom",
+    "Transformasi: Translasi, Rotasi, Refleksi, Dilatasi",
+    "Translasi: (x,y) → (x+a, y+b)"
+  ]
+}

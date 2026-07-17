@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}LAUTIKA — Beranda{% endblock %}
+{% block breadcrumb %}
+<a href="/">Beranda</a>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<div class="hero slide-up">
+  <div class="hero__wave">🌊</div>
+  <h1 class="hero__title">LAUTIKA</h1>
+  <p class="hero__sub">
+    Learning Box Etnomatematika — Pusat Pembelajaran Digital<br>
+    Tradisi Sedekah Laut Kabupaten Cilacap
+  </p>
+  <span class="hero__badge">✦ 5 Materi Etnomatematika Interaktif</span>
+</div>
+
+<!-- Progress Belajar -->
+<div class="card reveal" style="margin-bottom:24px">
+  <div class="section-header">
+    <span class="section-badge" style="background:var(--accent-gold);color:#000">📊</span>
+    <span class="section-title">Progress Belajarmu</span>
+  </div>
+  <div id="progress-bars">
+    <!-- diisi oleh JS -->
+    <p style="color:var(--text-muted);font-size:.85rem">
+      Mulai belajar untuk melihat progressmu di sini!
+    </p>
+  </div>
+</div>
+
+<!-- 5 Kartu Materi -->
+<div class="section-header reveal">
+  <span class="section-badge" style="background:var(--accent-blue);color:#fff">📚</span>
+  <span class="section-title">Pilih Materi</span>
+</div>
+<div class="card-grid" style="margin-bottom:32px">
+  {% for m in materi_list %}
+  <a href="/materi/{{ m.slug }}"
+     class="materi-card reveal"
+     style="--card-color:{{ m.warna }}"
+     aria-label="Materi {{ m.nomor }}: {{ m.judul }}">
+    <div class="materi-card__header">
+      <span class="materi-card__ikon" aria-hidden="true">{{ m.ikon }}</span>
+      <div class="materi-card__nomor">Materi {{ m.nomor }}</div>
+      <div class="materi-card__judul">{{ m.judul }}</div>
+    </div>
+    <div class="materi-card__body">
+      <div class="materi-card__geo">{{ m.geometri }}</div>
+      <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:12px">
+        {{ m.deskripsi }}
+      </div>
+      <span class="materi-card__btn" style="background:{{ m.warna }}">
+        Mulai Belajar →
+      </span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- Tentang LAUTIKA -->
+<div class="card reveal">
+  <div class="section-header">
+    <span class="section-badge" style="background:var(--accent-teal);color:#000">ℹ️</span>
+    <span class="section-title">Tentang LAUTIKA</span>
+  </div>
+  <p class="section-body">
+    <strong>LAUTIKA</strong> (Learning Box Etnomatematika) adalah media pembelajaran inovatif
+    yang mengintegrasikan kearifan lokal Tradisi Sedekah Laut Kabupaten Cilacap
+    dengan konsep-konsep matematika. Setiap objek budaya menjadi jendela untuk
+    memahami geometri secara kontekstual dan bermakna.
+  </p>
+  <div class="three-col" style="margin-top:18px">
+    {% for item in [
+      ("🎯","Tujuan","Menghubungkan budaya lokal dengan pembelajaran matematika bermakna"),
+      ("🔬","Metode","Visualisasi 3D interaktif, simulasi real-time, latihan, dan kuis"),
+      ("🎓","Target","Siswa SMP yang ingin belajar geometri secara menyenangkan")
+    ] %}
+    <div style="text-align:center;padding:14px;background:var(--bg-surface);border-radius:10px">
+      <div style="font-size:1.9rem">{{ item[0] }}</div>
+      <strong style="display:block;margin:6px 0 4px">{{ item[1] }}</strong>
+      <p style="font-size:.8rem;color:var(--text-muted)">{{ item[2] }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function renderProgress() {
+  const MATERI = {{ materi_list|tojson }};
+  let prog = {};
+  try { prog = JSON.parse(localStorage.getItem('lautika_progress_v2')) || {}; } catch{}
+  const cont = document.getElementById('progress-bars');
+  if (!cont) return;
+  const total = MATERI.length;
+  const done  = Object.values(prog).filter(v => v >= 3).length;
+  let html = `<div style="margin-bottom:10px;font-size:.82rem;color:var(--text-muted)">
+    ${done} dari ${total} materi selesai</div>
+    <div style="display:flex;flex-direction:column;gap:10px">`;
+  MATERI.forEach(m => {
+    const p   = prog[m.slug] || 0;
+    const pct = p===0?0:p===1?33:p===2?66:100;
+    const lbl = ['Belum dimulai','Sedang belajar','Latihan selesai','Selesai ✓'][p] || 'Belum dimulai';
+    html += `<div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <span style="font-size:.83rem">${m.ikon} ${m.judul}</span>
+        <span style="font-size:.75rem;color:var(--text-muted)">${lbl}</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" style="width:${pct}%;background:${m.warna}"></div>
+      </div></div>`;
+  });
+  html += '</div>';
+  cont.innerHTML = html;
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{
+  "slug": "layar_perahu",
+  "judul": "Layar Perahu",
+  "nomor": 4,
+  "deskripsi_budaya": "Layar perahu berfungsi menangkap angin untuk menggerakkan perahu di laut. Dalam Tradisi Sedekah Laut, layar berperan membawa perahu ke tengah laut lepas. Layar yang berkembang menjadi simbol semangat dan doa para nelayan Cilacap.",
+  "geometri_utama": ["Segitiga"],
+  "model_3d": {
+    "type": "single",
+    "parts": [
+      {"name": "Layar (Segitiga)", "shape": "triangle_prism",
+       "color": "#F5F5F5",
+       "dims": {"base": 2.2, "h": 2.75, "d": 0.02}, "pos": [0,0,0]}
+    ]
+  },
+  "tujuan": [
+    "Mengenal fungsi layar perahu dalam Tradisi Sedekah Laut",
+    "Mengidentifikasi bentuk geometri layar perahu",
+    "Memahami konsep segitiga",
+    "Menghitung luas dan keliling segitiga",
+    "Menyelesaikan soal kontekstual"
+  ],
+  "unsur_bangun": {
+    "Segitiga": ["Alas (a)", "Tinggi (t)", "Sisi s1, s2, s3",
+                 "3 Titik Sudut", "Titik Puncak (atas layar)"]
+  },
+  "jenis_segitiga": [
+    {"nama": "Sama Sisi",  "ket": "Ketiga sisi sama panjang"},
+    {"nama": "Sama Kaki",  "ket": "Dua sisi sama panjang (layar perahu!)"},
+    {"nama": "Sembarang",  "ket": "Ketiga sisi berbeda panjang"},
+    {"nama": "Siku-siku",  "ket": "Satu sudut = 90°"}
+  ],
+  "rumus": [
+    {"nama": "Luas Segitiga",
+     "latex": "L = \\frac{1}{2} \\times a \\times t",
+     "simbol": {"a": "Alas segitiga", "t": "Tinggi segitiga"}},
+    {"nama": "Keliling Segitiga",
+     "latex": "K = s_1 + s_2 + s_3",
+     "simbol": {"s1": "Sisi pertama", "s2": "Sisi kedua", "s3": "Sisi ketiga"}}
+  ],
+  "simulasi": {
+    "params": [
+      {"id": "a", "label": "Alas (m)",   "min": 1, "max": 15, "default": 6, "unit": "m"},
+      {"id": "t", "label": "Tinggi (m)", "min": 1, "max": 20, "default": 4, "unit": "m"},
+      {"id": "s1","label": "Sisi s1 (m)","min": 1, "max": 15, "default": 5, "unit": "m"},
+      {"id": "s2","label": "Sisi s2 (m)","min": 1, "max": 15, "default": 5, "unit": "m"},
+      {"id": "s3","label": "Sisi s3 (m)","min": 1, "max": 15, "default": 6, "unit": "m"}
+    ],
+    "hasil": ["L_segitiga", "K_segitiga"]
+  },
+  "contoh_soal": {
+    "diketahui": {"a": 6, "t": 4, "s1": 5, "s2": 5, "s3": 6},
+    "ditanya": ["Luas layar", "Keliling layar"],
+    "pembahasan": [
+      {"langkah": 1, "judul": "Hitung Luas Layar",
+       "isi": "L = ½ × 6 × 4 = 12 m²"},
+      {"langkah": 2, "judul": "Hitung Keliling Layar",
+       "isi": "K = 5 + 5 + 6 = 16 m"}
+    ]
+  },
+  "latihan": {
+    "soal": "Layar perahu dengan alas a=8m dan tinggi t=6m. Hitung luasnya!",
+    "jawaban": 24,
+    "toleransi": 1,
+    "pembahasan": ["L = ½ × 8 × 6 = 24 m²"]
+  },
+  "quiz": [
+    {"soal": "Layar perahu menyerupai bangun datar...",
+     "pilihan": ["Persegi","Segitiga","Trapesium","Lingkaran"], "jawaban": 1},
+    {"soal": "Rumus luas segitiga...",
+     "pilihan": ["L=a×t", "L=½×a×t", "L=a+t", "L=2(a+t)"], "jawaban": 1},
+    {"soal": "Layar perahu nelayan umumnya berbentuk segitiga...",
+     "pilihan": ["Sama Sisi","Sembarang","Sama Kaki","Siku-siku"], "jawaban": 2},
+    {"soal": "Jika a=6m dan t=4m, luas layar = ?",
+     "pilihan": ["12 m²","24 m²","10 m²","18 m²"], "jawaban": 0},
+    {"soal": "Keliling segitiga dihitung dengan...",
+     "pilihan": ["K=a×t","K=½(a+t)","K=s1+s2+s3","K=3×s"],
+     "jawaban": 2}
+  ],
+  "ringkasan": [
+    "Layar perahu = bagian penting dalam Sedekah Laut",
+    "Bentuk layar menyerupai segitiga sama kaki",
+    "Konsep: unsur segitiga, luas, keliling",
+    "L = ½ × alas × tinggi",
+    "K = s1 + s2 + s3"
+  ]
+}

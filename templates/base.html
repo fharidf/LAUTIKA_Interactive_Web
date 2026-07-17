@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- SEO & Meta -->
+  <title>{% block title %}LAUTIKA — Learning Box Etnomatematika{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}LAUTIKA: Media Pembelajaran Interaktif Etnomatematika berbasis Tradisi Sedekah Laut Kabupaten Cilacap. Visualisasi 3D, simulasi, latihan dan kuis geometri.{% endblock %}">
+  <meta name="keywords" content="etnomatematika, geometri, sedekah laut, cilacap, pembelajaran interaktif, matematika, visualisasi 3D">
+  <meta name="author" content="LAUTIKA Team">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="LAUTIKA — Learning Box Etnomatematika">
+  <meta property="og:description" content="Pembelajaran matematika berbasis budaya Sedekah Laut Cilacap dengan visualisasi 3D interaktif.">
+  <meta property="og:image"       content="/static/img/og-image.png">
+  <meta property="og:locale"      content="id_ID">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="LAUTIKA — Learning Box Etnomatematika">
+  <meta name="twitter:description" content="Pembelajaran matematika berbasis budaya Sedekah Laut Cilacap.">
+  <meta name="twitter:image"       content="/static/img/og-image.png">
+
+  <!-- PWA / Mobile -->
+  <meta name="theme-color" content="#0A1628">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LAUTIKA">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16.png">
+  <link rel="shortcut icon" href="/static/img/favicon-32.png">
+
+  <!-- Preconnect CDN -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+          crossorigin="anonymous"
+          onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+
+  <!-- Three.js + OrbitControls -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js" crossorigin="anonymous"></script>
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+<!-- ═══ SPLASH SCREEN ═══ -->
+<div id="splash" role="status" aria-label="Memuat LAUTIKA">
+  <div class="splash-inner">
+    <div class="splash-wave">🌊</div>
+    <div class="splash-title">LAUTIKA</div>
+    <div class="splash-sub">Learning Box Etnomatematika</div>
+    <div class="splash-bar"><div class="splash-progress"></div></div>
+  </div>
+</div>
+
+<!-- ═══ TOP NAV ═══ -->
+<nav class="topnav" id="topnav" role="navigation" aria-label="Navigasi utama">
+  <div class="topnav__brand">
+    <button class="btn-menu" id="btn-menu" aria-label="Buka menu" aria-expanded="false">
+      <span class="menu-icon">☰</span>
+    </button>
+    <a href="/" class="topnav__logo" aria-label="LAUTIKA Beranda">
+      <span class="logo-icon" aria-hidden="true">🌊</span>
+      <span class="logo-text">LAUTIKA</span>
+    </a>
+    <span class="topnav__tagline" aria-hidden="true">Learning Box Etnomatematika</span>
+  </div>
+
+  <!-- Breadcrumb (desktop) -->
+  <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+    {% block breadcrumb %}{% endblock %}
+  </nav>
+
+  <div class="topnav__actions">
+    <button class="btn-icon" id="btn-darkmode" aria-label="Toggle tema" title="Dark/Light Mode">
+      <span id="darkmode-icon" aria-hidden="true">☀️</span>
+    </button>
+    <button class="btn-icon" id="btn-fullscreen" aria-label="Layar penuh" title="Full Screen">
+      <span aria-hidden="true">⛶</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scroll-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+<!-- ═══ SIDEBAR OVERLAY ═══ -->
+<div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sidebar" role="complementary" aria-label="Daftar materi">
+  <div class="sidebar__header">
+    <span class="sidebar__label">MATERI</span>
+    <button class="sidebar__close btn-icon" id="sidebar-close" aria-label="Tutup sidebar">✕</button>
+  </div>
+  <nav class="sidebar__nav">
+    {% for m in materi_list %}
+    <a href="/materi/{{ m.slug }}"
+       class="sidebar__item {% if request.path == '/materi/'+m.slug %}active{% endif %}"
+       style="--accent: {{ m.warna }}"
+       aria-current="{% if request.path == '/materi/'+m.slug %}page{% else %}false{% endif %}">
+      <span class="sidebar__ikon" aria-hidden="true">{{ m.ikon }}</span>
+      <span class="sidebar__teks">
+        <small>Materi {{ m.nomor }}</small>
+        {{ m.judul }}
+      </span>
+      {% if request.path == '/materi/'+m.slug %}
+      <span class="sidebar__active-dot" aria-hidden="true"></span>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </nav>
+  <div class="sidebar__footer">
+    <a href="/" class="btn-home">🏠 Beranda</a>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main-content" id="main-content">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ═══ BACK TO TOP ═══ -->
+<button class="btn-backtop" id="btn-backtop" aria-label="Kembali ke atas" title="Kembali ke atas">
+  ↑
+</button>
+
+<!-- ═══ LOADING OVERLAY ═══ -->
+<div class="loading-overlay" id="loading" role="status" aria-live="polite">
+  <div class="loading-spinner"></div>
+  <p>Memuat...</p>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,98 @@
+{
+  "slug": "jolen",
+  "judul": "Jolen",
+  "nomor": 1,
+  "deskripsi_budaya": "Jolen adalah tempat sesaji yang digunakan dalam Tradisi Sedekah Laut Kabupaten Cilacap. Jolen diisi dengan hasil bumi sebagai simbol rasa syukur masyarakat nelayan kepada Tuhan Yang Maha Esa atas hasil laut yang diperoleh.",
+  "geometri_utama": ["Balok", "Limas Segi Empat"],
+  "model_3d": {
+    "type": "compound",
+    "parts": [
+      {"name": "Balok", "shape": "box", "color": "#FFD54F",
+       "dims": {"w": 2.4, "h": 1.6, "d": 2.4}, "pos": [0, -0.8, 0]},
+      {"name": "Limas Segi Empat", "shape": "pyramid",
+       "color": "#00BFA5",
+       "dims": {"base": 2.4, "h": 1.8}, "pos": [0, 0.8, 0]}
+    ]
+  },
+  "tujuan": [
+    "Mengenal Jolen dalam Tradisi Sedekah Laut",
+    "Mengidentifikasi bentuk geometri Jolen",
+    "Memahami konsep bangun ruang",
+    "Menggunakan rumus volume dan luas permukaan",
+    "Menyelesaikan soal kontekstual"
+  ],
+  "unsur_bangun": {
+    "Balok": ["Panjang (p)", "Lebar (l)", "Tinggi (t)",
+              "12 rusuk", "8 titik sudut", "6 sisi"],
+    "Limas Segi Empat": ["Alas (p x l)", "Tinggi (t)",
+                          "Titik Puncak", "4 sisi tegak"]
+  },
+  "rumus": [
+    {"nama": "Volume Balok",
+     "latex": "V = p \\times l \\times t",
+     "simbol": {"p": "Panjang", "l": "Lebar", "t": "Tinggi"}},
+    {"nama": "Luas Permukaan Balok",
+     "latex": "L_p = 2(pl + pt + lt)",
+     "simbol": {"p": "Panjang", "l": "Lebar", "t": "Tinggi"}},
+    {"nama": "Volume Limas Segi Empat",
+     "latex": "V = \\frac{1}{3} \\times L_{alas} \\times t",
+     "simbol": {"L_{alas}": "Luas Alas", "t": "Tinggi Limas"}}
+  ],
+  "simulasi": {
+    "params": [
+      {"id": "p", "label": "Panjang Balok (cm)", "min": 10, "max": 80, "default": 40, "unit": "cm"},
+      {"id": "l", "label": "Lebar Balok (cm)",   "min": 10, "max": 60, "default": 30, "unit": "cm"},
+      {"id": "t1","label": "Tinggi Balok (cm)",  "min": 10, "max": 60, "default": 35, "unit": "cm"},
+      {"id": "t2","label": "Tinggi Limas (cm)",  "min": 5,  "max": 50, "default": 24, "unit": "cm"}
+    ],
+    "hasil": ["V_balok", "V_limas", "V_total", "Lp_balok"]
+  },
+  "contoh_soal": {
+    "diketahui": {"p": 40, "l": 30, "t1": 35, "t2": 24},
+    "ditanya": ["Volume balok", "Volume limas", "Volume total Jolen"],
+    "pembahasan": [
+      {"langkah": 1, "judul": "Pahami Informasi",
+       "isi": "p=40cm, l=30cm, t1=35cm, t2=24cm"},
+      {"langkah": 2, "judul": "Hitung Volume Balok",
+       "isi": "V = 40 × 30 × 35 = 42.000 cm³"},
+      {"langkah": 3, "judul": "Hitung Luas Alas untuk Limas",
+       "isi": "L_alas = 40 × 30 = 1.200 cm²"},
+      {"langkah": 4, "judul": "Hitung Volume Limas",
+       "isi": "V = ⅓ × 1.200 × 24 = 9.600 cm³"},
+      {"langkah": 5, "judul": "Volume Total Jolen",
+       "isi": "V_total = 42.000 + 9.600 = 51.600 cm³"}
+    ]
+  },
+  "latihan": {
+    "soal": "Sebuah Jolen memiliki ukuran: Balok p=50cm, l=40cm, t1=30cm. Limas t2=20cm. Hitung volume total Jolen!",
+    "jawaban": 73333,
+    "toleransi": 100,
+    "pembahasan": [
+      "L_alas = 50 × 40 = 2.000 cm²",
+      "V_balok = 50 × 40 × 30 = 60.000 cm³",
+      "V_limas = ⅓ × 2.000 × 20 ≈ 13.333 cm³",
+      "V_total ≈ 73.333 cm³"
+    ]
+  },
+  "quiz": [
+    {"soal": "Jolen tersusun dari berapa bangun ruang?",
+     "pilihan": ["1", "2", "3", "4"], "jawaban": 1},
+    {"soal": "Bagian bawah Jolen berbentuk...",
+     "pilihan": ["Kerucut", "Limas", "Balok", "Tabung"], "jawaban": 2},
+    {"soal": "Rumus Volume Balok adalah...",
+     "pilihan": ["V = πr²t", "V = p×l×t", "V = ⅓×L×t", "V = s³"],
+     "jawaban": 1},
+    {"soal": "Jika p=10, l=5, t=4, maka Volume Balok = ?",
+     "pilihan": ["150", "200", "190", "180"], "jawaban": 1},
+    {"soal": "Tradisi Sedekah Laut berasal dari kabupaten...",
+     "pilihan": ["Banyumas", "Cilacap", "Kebumen", "Purbalingga"],
+     "jawaban": 1}
+  ],
+  "ringkasan": [
+    "Jolen = objek budaya Tradisi Sedekah Laut Cilacap",
+    "Terdiri dari Balok (bawah) + Limas Segi Empat (atas)",
+    "Volume Balok: V = p × l × t",
+    "Volume Limas: V = ⅓ × L_alas × t",
+    "Volume total = V_balok + V_limas"
+  ]
+}

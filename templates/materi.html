@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+{% block title %}{{ m.judul }} — LAUTIKA{% endblock %}
+{% block meta_desc %}Pelajari {{ m.judul }} dalam Tradisi Sedekah Laut Cilacap. Geometri: {{ m.geometri }}. Visualisasi 3D, simulasi, latihan, dan kuis interaktif.{% endblock %}
+{% block head_extra %}<script>document.body.dataset.slug="{{ m.slug }}";</script>{% endblock %}
+{% block breadcrumb %}
+<a href="/">Beranda</a>
+<span>{{ m.judul }}</span>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<div class="materi-hero fade-in">
+  <span class="materi-hero__ikon" aria-hidden="true">{{ m.ikon }}</span>
+  <div>
+    <div class="materi-hero__nomor">Materi {{ m.nomor }} dari 5</div>
+    <h1 class="materi-hero__judul" style="color:{{ m.warna }}">{{ m.judul }}</h1>
+    <div class="materi-hero__geo">Geometri: {{ m.geometri }}</div>
+  </div>
+</div>
+
+<!-- Model 3D data (hidden) -->
+{% if data and data.model_3d %}
+<script id="model-data" type="application/json">{{ data.model_3d|tojson }}</script>
+{% endif %}
+
+<!-- ═══ TABS ═══ -->
+<div class="tabs" role="tablist">
+  {% set tabs = [
+    ("tab-budaya",   "🏺 Budaya",    True),
+    ("tab-3d",       "🔭 3D",       False),
+    ("tab-materi",   "📖 Materi",   False),
+    ("tab-rumus",    "📐 Rumus",    False),
+    ("tab-simulasi", "🎛️ Simulasi", False),
+    ("tab-soal",     "📝 Soal",     False),
+    ("tab-latihan",  "✏️ Latihan",  False),
+    ("tab-quiz",     "🎯 Quiz",     False),
+    ("tab-ringkasan","📋 Ringkasan",False),
+  ] %}
+  {% for tid, tlabel, tactive in tabs %}
+  <button class="tab-btn {% if tactive %}active{% endif %}"
+          data-group="materi" data-tab="{{ tid }}"
+          role="tab" aria-selected="{{ 'true' if tactive else 'false' }}"
+          aria-controls="{{ tid }}">{{ tlabel }}</button>
+  {% endfor %}
+</div>
+
+<!-- ── Tab Budaya ── -->
+<div class="tab-panel active" id="tab-budaya" data-group="materi" role="tabpanel">
+  <div class="two-col">
+    <div class="card">
+      <div class="section-header">
+        <span class="section-badge" style="background:{{ m.warna }};color:#000">🌊</span>
+        <span class="section-title">Deskripsi Objek Budaya</span>
+      </div>
+      <p class="section-body">{{ data.deskripsi_budaya if data else m.deskripsi }}</p>
+      {% if data and data.tujuan %}
+      <div style="margin-top:18px">
+        <strong style="font-size:.88rem;color:var(--accent-teal)">Tujuan Pembelajaran:</strong>
+        <ul class="tujuan-list" style="margin-top:9px">
+          {% for t in data.tujuan %}
+          <li data-num="{{ loop.index }}">{{ t }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    <div class="card">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--accent-teal);color:#000">📐</span>
+        <span class="section-title">Bentuk Geometri</span>
+      </div>
+      {% if data and data.geometri_utama %}
+      <div class="unsur-grid" style="margin-bottom:14px">
+        {% for g in data.geometri_utama %}
+        <span class="unsur-chip" style="border-color:{{ m.warna }};color:{{ m.warna }};
+          background:rgba(255,255,255,.06)">{{ g }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if data and data.unsur_bangun %}
+      {% for bangun, unsur in data.unsur_bangun.items() %}
+      <div style="margin-bottom:14px">
+        <strong style="font-size:.88rem;color:var(--accent-gold)">{{ bangun }}</strong>
+        <div class="unsur-grid" style="margin-top:7px">
+          {% for u in unsur %}<span class="unsur-chip">{{ u }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- ── Tab 3D ── -->
+<div class="tab-panel" id="tab-3d" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-blue);color:#fff">🔭</span>
+      <span class="section-title">Visualisasi 3D Interaktif</span>
+    </div>
+    <div class="viewer-3d-wrapper" style="height:clamp(300px,48vw,480px)">
+      <canvas id="canvas-3d" style="width:100%;height:100%;display:block"></canvas>
+      <div class="viewer-3d-hint" id="viewer-hint">
+        🖱️ Drag putar &nbsp;|&nbsp; Scroll zoom &nbsp;|&nbsp; 📱 Sentuh &amp; gesek
+      </div>
+      <div class="viewer-3d-badge">Three.js 3D</div>
+      <div class="viewer-3d-controls">
+        <button id="btn-autorot">🔄 Auto</button>
+        <button id="btn-geomode">📐 Geometri</button>
+        <button id="btn-reset3d">↺ Reset</button>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-top:9px;text-align:center">
+      Klik <strong style="color:var(--accent-teal)">Geometri</strong> untuk warna berbeda per bangun.
+      Klik <strong style="color:var(--accent-blue)">Auto</strong> pause/resume rotasi.
+    </p>
+  </div>
+</div>
+
+<!-- ── Tab Materi ── -->
+<div class="tab-panel" id="tab-materi" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-teal);color:#000">📖</span>
+      <span class="section-title">Materi Pembelajaran</span>
+    </div>
+    {% if data and data.unsur_bangun %}
+    {% for bangun, unsur in data.unsur_bangun.items() %}
+    <div style="margin-bottom:22px">
+      <h3 style="font-size:1rem;color:var(--accent-gold);margin-bottom:9px">{{ bangun }}</h3>
+      <div class="unsur-grid">
+        {% for u in unsur %}<span class="unsur-chip">{{ u }}</span>{% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if data and data.transformasi %}
+    <h3 style="font-size:1rem;color:var(--accent-gold);margin:18px 0 10px">Transformasi Geometri</h3>
+    <div class="card-grid">
+      {% for tr in data.transformasi %}
+      <div class="card" style="border-color:{{ tr.warna }};padding:14px">
+        <strong style="color:{{ tr.warna }}">{{ tr.nama }}</strong>
+        <p style="font-size:.83rem;color:var(--text-muted);margin:5px 0">{{ tr.ket }}</p>
+        <code style="font-size:.8rem;color:var(--accent-blue)">{{ tr.rumus }}</code>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if data and data.jenis_segitiga %}
+    <h3 style="font-size:1rem;color:var(--accent-gold);margin:18px 0 10px">Jenis-jenis Segitiga</h3>
+    <div class="card-grid">
+      {% for js in data.jenis_segitiga %}
+      <div style="padding:12px;background:var(--bg-surface);border-radius:10px">
+        <strong style="color:var(--accent-teal)">{{ js.nama }}</strong>
+        <p style="font-size:.8rem;color:var(--text-muted);margin-top:3px">{{ js.ket }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Rumus ── -->
+<div class="tab-panel" id="tab-rumus" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-gold);color:#000">📐</span>
+      <span class="section-title">Rumus</span>
+    </div>
+    {% if data and data.rumus %}
+    {% for r in data.rumus %}
+    <div class="formula-card">
+      <div class="formula-name">{{ r.nama }}</div>
+      <div class="formula-latex">$${{ r.latex }}$$</div>
+      <div class="formula-symbols">
+        {% for sym, ket in r.simbol.items() %}
+        <span class="sym-chip">${{ sym }}$ = {{ ket }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}<p class="section-body">Rumus belum tersedia.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Simulasi ── -->
+<div class="tab-panel" id="tab-simulasi" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-orange);color:#fff">🎛️</span>
+      <span class="section-title">Simulasi Interaktif</span>
+    </div>
+    <p style="font-size:.86rem;color:var(--text-muted);margin-bottom:14px">
+      Geser slider — hasil dihitung otomatis secara real-time!
+    </p>
+    {% if data and data.simulasi %}
+    <div class="sim-grid">
+      {% for p in data.simulasi.params %}
+      <div class="sim-row">
+        <label class="sim-label" for="{{ p.id }}">{{ p.label }}</label>
+        <input type="range" class="sim-slider" id="{{ p.id }}"
+               min="{{ p.min }}" max="{{ p.max }}" value="{{ p.default }}"
+               aria-label="{{ p.label }}">
+        <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-muted)">
+          <span>{{ p.min }}</span>
+          <span class="sim-val" id="val-{{ p.id }}">{{ p.default }}</span>
+          <span>{{ p.max }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="sim-results">
+      {% for h in data.simulasi.hasil %}
+      <div class="sim-result-item">
+        <div class="sim-result-label">{{ h.replace('_',' ') }}</div>
+        <div class="sim-result-val" id="res-{{ h }}">—</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Contoh Soal ── -->
+<div class="tab-panel" id="tab-soal" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-orange);color:#fff">📝</span>
+      <span class="section-title">Contoh Soal</span>
+    </div>
+    {% if data and data.contoh_soal %}{% set cs = data.contoh_soal %}
+    <div style="background:var(--bg-surface);border-radius:10px;padding:14px;margin-bottom:18px">
+      <strong style="color:var(--accent-teal)">Diketahui:</strong>
+      <div style="margin-top:7px;display:flex;flex-wrap:wrap;gap:7px">
+        {% for k,v in cs.diketahui.items() %}
+        <span class="unsur-chip">{{ k }} = {{ v }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <strong style="color:var(--accent-gold)">Ditanya:</strong>
+    <ul style="margin:7px 0 18px;padding-left:18px;color:var(--text-secondary)">
+      {% for d in cs.ditanya %}<li>{{ d }}</li>{% endfor %}
+    </ul>
+    <strong style="color:var(--accent-blue)">Pembahasan:</strong>
+    <ul class="steps-list" style="margin-top:10px">
+      {% for step in cs.pembahasan %}
+      <li class="step-item">
+        <div class="step-num">{{ step.langkah }}</div>
+        <div class="step-body">
+          <strong>{{ step.judul }}</strong>
+          <span>{{ step.isi }}</span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Latihan ── -->
+<div class="tab-panel" id="tab-latihan" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-green);color:#000">✏️</span>
+      <span class="section-title">Latihan Interaktif</span>
+    </div>
+    {% if data and data.latihan %}{% set lat = data.latihan %}
+    <div class="latihan-box">
+      <p class="latihan-soal">{{ lat.soal }}</p>
+      <div class="latihan-input-row">
+        <input type="number" id="latihan-input" class="latihan-input"
+               placeholder="Jawaban kamu..." aria-label="Input jawaban latihan"
+               inputmode="decimal">
+        <button class="btn-check" id="btn-check"
+                data-jawaban="{{ lat.jawaban }}"
+                data-toleransi="{{ lat.toleransi }}">Periksa</button>
+      </div>
+      <div id="latihan-celebrate" style="text-align:center;font-size:2rem;margin-top:7px"
+           aria-live="polite"></div>
+      <div class="latihan-feedback" id="latihan-feedback" role="alert"></div>
+      <div id="latihan-pembahasan" style="display:none;margin-top:14px">
+        <strong style="color:var(--accent-teal)">Pembahasan:</strong>
+        <ul class="steps-list" style="margin-top:7px">
+          {% for p in lat.pembahasan %}
+          <li class="step-item" style="border-left-color:var(--accent-teal)">
+            <div class="step-body"><span>{{ p }}</span></div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Quiz ── -->
+<div class="tab-panel" id="tab-quiz" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-orange);color:#fff">🎯</span>
+      <span class="section-title">Quiz — {{ m.judul }}</span>
+    </div>
+    {% if data and data.quiz %}
+    <form id="quiz-form" novalidate>
+      {% for q in data.quiz %}
+      <div class="quiz-question" data-jawaban="{{ q.jawaban }}">
+        <div class="quiz-q-text">{{ loop.index }}. {{ q.soal }}</div>
+        <div class="quiz-options" role="group">
+          {% for p in q.pilihan %}
+          <button type="button" class="quiz-opt"
+                  aria-pressed="false">{{ p }}</button>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </form>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px">
+      <button class="btn-check" id="quiz-submit">Lihat Nilai</button>
+      <button class="btn-nav" id="quiz-retry" style="display:none">🔄 Ulangi</button>
+    </div>
+    <div class="quiz-score" id="quiz-score" style="display:none" aria-live="polite"></div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Tab Ringkasan ── -->
+<div class="tab-panel" id="tab-ringkasan" data-group="materi" role="tabpanel">
+  <div class="card">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--accent-teal);color:#000">📋</span>
+      <span class="section-title">Ringkasan Materi</span>
+    </div>
+    {% if data and data.ringkasan %}
+    <ul class="ringkasan-list">
+      {% for r in data.ringkasan %}<li>{{ r }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <div style="margin-top:18px;padding:14px;background:rgba(0,191,165,.1);
+      border:1px solid var(--accent-teal);border-radius:10px;text-align:center">
+      <div style="font-size:1.4rem">🎉</div>
+      <p style="color:var(--accent-teal);font-weight:600;margin-top:5px">
+        Selamat! Kamu telah menyelesaikan materi {{ m.judul }}.
+      </p>
+      <p style="font-size:.82rem;color:var(--text-muted);margin-top:3px">
+        Matematika ada di sekitar kita — termasuk di budaya Sedekah Laut Cilacap.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Nav prev/next -->
+<div class="materi-nav">
+  {% if prev_materi %}
+  <a href="/materi/{{ prev_materi.slug }}" class="btn-nav">
+    ← {{ prev_materi.ikon }} {{ prev_materi.judul }}
+  </a>
+  {% else %}<div></div>{% endif %}
+  <a href="/" class="btn-nav">🏠 Beranda</a>
+  {% if next_materi %}
+  <a href="/materi/{{ next_materi.slug }}" class="btn-nav">
+    {{ next_materi.ikon }} {{ next_materi.judul }} →
+  </a>
+  {% else %}<div></div>{% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/viewer3d.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{
+  "name": "LAUTIKA — Learning Box Etnomatematika",
+  "short_name": "LAUTIKA",
+  "description": "Media pembelajaran matematika berbasis budaya Sedekah Laut Cilacap",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A1628",
+  "theme_color": "#0A1628",
+  "orientation": "any",
+  "lang": "id",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "/static/img/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Materi Jolen",
+      "url": "/materi/jolen",
+      "icons": [{"src": "/static/img/icon-192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Materi Tumpeng",
+      "url": "/materi/tumpeng",
+      "icons": [{"src": "/static/img/icon-192.png", "sizes": "192x192"}]
+    }
+  ]
+}

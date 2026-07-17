@@ -1,0 +1,89 @@
+{
+  "slug": "tumpeng",
+  "judul": "Tumpeng",
+  "nomor": 2,
+  "deskripsi_budaya": "Tumpeng merupakan salah satu sesaji dalam Tradisi Sedekah Laut Kabupaten Cilacap yang melambangkan rasa syukur masyarakat pesisir kepada Tuhan Yang Maha Esa atas hasil laut yang diperoleh serta harapan akan keselamatan dan keberkahan.",
+  "geometri_utama": ["Kerucut"],
+  "model_3d": {
+    "type": "single",
+    "parts": [
+      {"name": "Kerucut", "shape": "cone", "color": "#FFD54F",
+       "dims": {"r": 1.0, "h": 2.5}, "pos": [0, 0, 0]}
+    ]
+  },
+  "tujuan": [
+    "Mengenal Tumpeng sebagai bagian dari Tradisi Sedekah Laut",
+    "Mengidentifikasi bentuk geometri Tumpeng",
+    "Memahami konsep bangun ruang kerucut",
+    "Memahami rumus volume dan luas permukaan kerucut",
+    "Menyelesaikan soal kontekstual"
+  ],
+  "unsur_bangun": {
+    "Kerucut": ["Jari-jari (r)", "Tinggi (t)",
+                "Garis Pelukis (s = √(r²+t²))",
+                "Alas Lingkaran", "Titik Puncak", "Selimut Kerucut"]
+  },
+  "rumus": [
+    {"nama": "Volume Kerucut",
+     "latex": "V = \\frac{1}{3} \\pi r^2 t",
+     "simbol": {"r": "Jari-jari", "t": "Tinggi"}},
+    {"nama": "Luas Permukaan Kerucut",
+     "latex": "L = \\pi r(r + s)",
+     "simbol": {"r": "Jari-jari", "s": "Garis Pelukis = √(r²+t²)"}},
+    {"nama": "Garis Pelukis",
+     "latex": "s = \\sqrt{r^2 + t^2}",
+     "simbol": {"r": "Jari-jari", "t": "Tinggi"}}
+  ],
+  "simulasi": {
+    "params": [
+      {"id": "r", "label": "Jari-jari (cm)", "min": 5, "max": 30, "default": 14, "unit": "cm"},
+      {"id": "t", "label": "Tinggi (cm)",    "min": 5, "max": 60, "default": 30, "unit": "cm"}
+    ],
+    "hasil": ["s", "V_kerucut", "L_kerucut"]
+  },
+  "contoh_soal": {
+    "diketahui": {"r": 14, "t": 30},
+    "ditanya": ["Volume Tumpeng", "Luas Permukaan Tumpeng"],
+    "pembahasan": [
+      {"langkah": 1, "judul": "Hitung Garis Pelukis",
+       "isi": "s = √(14² + 30²) = √(196+900) = √1096 ≈ 33,1 cm"},
+      {"langkah": 2, "judul": "Hitung Volume",
+       "isi": "V = ⅓ × 3,14 × 14² × 30 = ⅓ × 3,14 × 196 × 30 ≈ 6.157,6 cm³"},
+      {"langkah": 3, "judul": "Hitung Luas Permukaan",
+       "isi": "L = 3,14 × 14 × (14 + 33,1) = 3,14 × 14 × 47,1 ≈ 2.071,3 cm²"}
+    ]
+  },
+  "latihan": {
+    "soal": "Tumpeng dengan jari-jari r=7cm dan tinggi t=24cm. Hitung volume!",
+    "jawaban": 1231,
+    "toleransi": 10,
+    "pembahasan": [
+      "V = ⅓ × 3,14 × 7² × 24",
+      "V = ⅓ × 3,14 × 49 × 24",
+      "V ≈ 1.230,9 cm³"
+    ]
+  },
+  "quiz": [
+    {"soal": "Tumpeng berbentuk bangun ruang...",
+     "pilihan": ["Balok", "Kerucut", "Tabung", "Limas"],
+     "jawaban": 1},
+    {"soal": "Garis pelukis kerucut dihitung dengan rumus...",
+     "pilihan": ["s = r+t", "s = √(r²+t²)", "s = r×t", "s = r/t"],
+     "jawaban": 1},
+    {"soal": "Rumus Volume Kerucut adalah...",
+     "pilihan": ["V = πr²t", "V = ⅓πr²t", "V = 2πrt", "V = πrt"],
+     "jawaban": 1},
+    {"soal": "Jika r=7 dan t=24, garis pelukis s = ?",
+     "pilihan": ["25 cm", "30 cm", "24 cm", "21 cm"], "jawaban": 0},
+    {"soal": "Alas kerucut berbentuk...",
+     "pilihan": ["Persegi", "Segitiga", "Lingkaran", "Trapesium"],
+     "jawaban": 2}
+  ],
+  "ringkasan": [
+    "Tumpeng = sesaji berbentuk Kerucut pada Sedekah Laut",
+    "Kerucut punya: r (jari-jari), t (tinggi), s (garis pelukis)",
+    "Volume: V = ⅓ × π × r² × t",
+    "Luas Permukaan: L = π × r × (r + s)",
+    "Garis pelukis: s = √(r² + t²)"
+  ]
+}
